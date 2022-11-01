@@ -2,8 +2,10 @@
 #define GAME_H
 
 #include <random>
+#include <string>
 #include "SDL.h"
 #include "controller.h"
+#include "map.h"
 #include "renderer.h"
 #include "snake.h"
 
@@ -18,6 +20,11 @@ class Game {
  private:
   Snake snake;
   SDL_Point food;
+
+  // Create background map object with self defined image
+  // std::string mapImagePath = "../resource/space_2.bmp";
+  // Map map(mapImagePath);
+  Map map;
 
   std::random_device dev;
   std::mt19937 engine;
