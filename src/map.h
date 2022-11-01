@@ -6,12 +6,12 @@
 
 class Map {
 public:
-    Map();
+    Map(std::string mapImagePath) : _mapImagePath(mapImagePath){};
     ~Map();
     void renderTexture(SDL_Renderer *sdl_renderer, const std::size_t screen_width, const std::size_t screen_height);
 
 private:
-    std::string _mapImage{"../resource/space_2.bmp"};
+    std::string _mapImagePath;
     SDL_Texture *sdl_texture;
     SDL_Surface *loadedImage;
     const std::size_t _screen_width{0};
