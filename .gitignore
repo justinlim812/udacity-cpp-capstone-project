@@ -1,5 +1,8 @@
 .github/**
 
+# Not keep track of vscode files
+.vscode/**
+
 # Not keep track of build files
 build/**
 
