@@ -1,4 +1,5 @@
 #include <cstring>
+#include <fstream>
 
 #include "scoreboard.h"
 
@@ -23,6 +24,21 @@ std::string Scoreboard::GetName(){
 
 void Scoreboard::SetName(std::string name){
    _name = name;
+}
+
+void Scoreboard::WriteToFile(int score, int size){
+   std::ofstream outfile;
+   outfile.open(_filePath);
+
+   if(outfile){
+      outfile << _name << std::endl;
+      outfile << score << std::endl;
+      outfile << size << std::endl;
+      outfile.close();
+   }
+   else{
+      std::cout << "Can't save game ranking due to file opening failed." << std::endl;
+   }
 }
 
 

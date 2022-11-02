@@ -18,7 +18,7 @@ public:
     // Request name input from user for scoreboard ranking
     void RequestName();
     
-    
+    void WriteToFile(int score, int size);
 
 private:
     // Path to scoreboard data (.txt)

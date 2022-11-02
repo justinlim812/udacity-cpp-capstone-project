@@ -22,5 +22,6 @@ int main() {
   std::cout << "Game has terminated successfully!\n";
   std::cout << "Score: " << game.GetScore() << "\n";
   std::cout << "Size: " << game.GetSize() << "\n";
+  scoreboard.WriteToFile(game.GetScore(), game.GetSize());
   return 0;
 }
