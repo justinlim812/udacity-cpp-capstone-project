@@ -1,4 +1,5 @@
 #include <iostream>
+#include "scoreboard.h"
 #include "controller.h"
 #include "game.h"
 #include "renderer.h"
@@ -10,7 +11,10 @@ int main() {
   constexpr std::size_t kScreenHeight{640};
   constexpr std::size_t kGridWidth{32};
   constexpr std::size_t kGridHeight{32};
+  const std::string kFilePath{"../resource/scoreboard.txt"};
 
+  Scoreboard scoreboard(kFilePath);
+  scoreboard.RequestName();
   Renderer renderer(kScreenWidth, kScreenHeight, kGridWidth, kGridHeight);
   Controller controller;
   Game game(kGridWidth, kGridHeight);
