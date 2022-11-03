@@ -19,7 +19,7 @@ int main() {
   Controller controller;
   Game game(kGridWidth, kGridHeight);
   game.Run(controller, renderer, kMsPerFrame, scoreboard);
-  std::cout << "Game has terminated successfully!\n";
+  std::cout << "\n\nGame has terminated successfully!\n";
   std::cout << "Your score: " << game.GetScore() << ", your snake size: " << game.GetSize() << std::endl;
   scoreboard.Stop(game.GetScore(), game.GetSize());
   return 0;
