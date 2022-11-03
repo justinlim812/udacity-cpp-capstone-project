@@ -5,13 +5,13 @@ This project was built on the Capstone project starter repo of [Udacity C++ Nano
 This project implements additional features utilizing the learning concepts thoughout this program. It includes concepts like pass by reference,
 
 ## Gameplay
----
+
 Snake game is a game for you to control a snake and eat as many food as possible, every food counts towards your final score. However, with every food eaten, your snake increases in size (body length), avoid eating your own body why feasting on the food!
 
 <img src="resource/snake_in_space.png"/>
 
 ## Dependencies for Running Locally
----
+
 * cmake >= 3.7
   * All OSes: [click here for installation instructions](https://cmake.org/install/)
 * make >= 4.1 (Linux, Mac), 3.81 (Windows)
@@ -27,14 +27,14 @@ Snake game is a game for you to control a snake and eat as many food as possible
   * Windows: recommend using [MinGW](http://www.mingw.org/)
 
 ## Basic Build Instructions
----
+
 1. Clone this repo.
 2. Make a build directory in the top level directory: `mkdir build && cd build`
 3. Compile: `cmake .. && make`
 4. Run it: `./SnakeGame`.
 
 ## Additional Features Added
----
+
 ### Background Map
 Added background layer so that the snake game can now be played like it's in space.
 
@@ -51,7 +51,7 @@ The game also stores top 5 scores from previous players of all times, display th
 <img src="resource/snake_game_scoreboard.png">
 
 ## Rubric Points Addressed 
----
+
 ### Loops, Functions, I/O
 1. The project demonstrates an understanding of C++ functions and control structures.
    - ```scoreboard.cpp``` line 36 to 96.
@@ -64,7 +64,7 @@ The game also stores top 5 scores from previous players of all times, display th
 
 ### Object Obriented Programming
 4. The project uses Object Orientated Programming techniques.
-   - Uses both Map and Scoreboard classes to demonstrate, refer to ```map.h``` and ```scoreboard.h```.
+   - Uses both Map and Scoreboard classes to demonstrate, please refer to ```map.h``` and ```scoreboard.h```.
 
 5. Classes use appropriate access specifiers for class members.
    - ```map.h``` line 7 to 19, ```scoreboard.h``` line 11 to 48.
