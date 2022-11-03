@@ -23,7 +23,7 @@ class Game {
   SDL_Point food;
 
   // Create background map object with self defined image
-  std::string mapImagePath = "../resource/space_2.bmp";
+  const std::string mapImagePath = "../resource/space_2.bmp";
   Map map{mapImagePath};
 
   std::random_device dev;

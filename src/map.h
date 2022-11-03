@@ -6,7 +6,7 @@
 
 class Map {
 public:
-    Map(std::string mapImagePath) : _mapImagePath(mapImagePath){};
+    Map(const std::string &mapImagePath) : _mapImagePath(mapImagePath){};
     ~Map();
     void renderTexture(SDL_Renderer *sdl_renderer, const std::size_t screen_width, const std::size_t screen_height);
 
