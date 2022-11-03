@@ -9,16 +9,16 @@
 
 class Scoreboard{
 public:
-    Scoreboard(std::string filePath) : _filePath(filePath){};
+    Scoreboard(const std::string &filePath) : _filePath(filePath){};
     ~Scoreboard();
     
     std::string GetName();
-    void SetName(std::string name);
+    void SetName(std::string &name);
 
     // Request name input from user for scoreboard ranking
     void RequestName();
     
-    void WriteToFile(int score, int size);
+    void WriteToFile(int &&score, int &&size); // Use of rvalue reference to avoid unnecessary copy
 
 private:
     // Path to scoreboard data (.txt)

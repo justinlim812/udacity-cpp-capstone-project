@@ -22,11 +22,11 @@ std::string Scoreboard::GetName(){
    return _name;
 }
 
-void Scoreboard::SetName(std::string name){
+void Scoreboard::SetName(std::string &name){
    _name = name;
 }
 
-void Scoreboard::WriteToFile(int score, int size){
+void Scoreboard::WriteToFile(int &&score, int &&size){
    std::ofstream outfile;
    outfile.open(_filePath);
 
