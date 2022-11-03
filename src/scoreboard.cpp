@@ -1,91 +1,124 @@
 #include <cstring>
-#include <fstream>
+#include <sstream>
+#include <algorithm> // For sort()
 
 #include "scoreboard.h"
 
-Scoreboard::~Scoreboard(){
-
+void Scoreboard::Start(){
+   ReadScoreBoard();
+   DisplayRankings();
+   RequestName();
 }
 
+
+void Scoreboard::Stop(int &&score, int &&size){
+   CheckScores(score, size);
+   ArrangeScores();
+   DisplayRankings();
+   WriteToFile(score, size);
+}
 
 
 void Scoreboard::RequestName(){
    std::string input;
-   std::cout << "Please enter your first name:" << std::endl;
+   std::cout << "Player, enter your first name:" << std::endl;
    std::cin >> input;
    Scoreboard::SetName(input);
-   // std::cout << "Name entered: " << Scoreboard::GetName() << std::endl;
-   // std::cout << "Total name length: " << Scoreboard::GetName().length() << std::endl;
 }
 
-std::string Scoreboard::GetName(){
-   return _name;
+
+std::string Scoreboard::GetName(){ return _name; }
+
+
+void Scoreboard::SetName(std::string &name){ _name = name; }
+
+
+// Helper function to parse line for ReadScoreBoard()
+std::vector<std::string> ParseLine(std::string line) {
+   std::istringstream sline(line);
+   std::vector<std::string> row;
+   std::string value; 
+   while(sline >> value){
+      row.emplace_back(value);
+   }
+   return row;
 }
 
-void Scoreboard::SetName(std::string &name){
-   _name = name;
-}
+void Scoreboard::ReadScoreBoard(){
+   std::ifstream infile(_filePath);
+   
+   // Check if the read file exists, otherwise file will be created at the end of program by outfile
+   if(infile){
+      std::string line;
+      std::string name, score, size;
+      int i = 0;
 
-void Scoreboard::WriteToFile(int &&score, int &&size){
-   std::ofstream outfile;
-   outfile.open(_filePath);
-
-   if(outfile){
-      outfile << _name << std::endl;
-      outfile << score << std::endl;
-      outfile << size << std::endl;
-      outfile.close();
+      while(std::getline(infile, line)){
+         // _contents.emplace_back(line);
+         std::vector< std::string > row = ParseLine(line);
+         _contents.emplace_back(row);
+      }
    }
    else{
-      std::cout << "Can't save game ranking due to file opening failed." << std::endl;
+      std::cout << "Scoreboard does not exist yet, continue playing to be the first to be on the Scoreboard!" << std::endl;
    }
+   infile.close();
 }
 
 
-// #include <fstream>
-// #include <iostream>
-// using namespace std;
- 
-// int main () {
-//    char data[100];
+void Scoreboard::DisplayRankings(){
+   std::cout << "\nAll-time Score Rankings" << std::endl;
 
-//    // open a file in write mode.
-//    ofstream outfile;
-//    outfile.open("afile.dat");
+   // A group of content consists of 3 elements in order [Name, score, size], display top 5 rankings
+   for (int i = 0; i < 5; i++){
+      std::cout << "#" << i+1 << " " << _contents[i][0] << ", Score: " << _contents[i][1] << ", Size: " << _contents[i][2] << std::endl;
+   }
+   std::cout << std::endl;
+}
 
-//    cout << "Writing to the file" << endl;
-//    cout << "Enter your name: "; 
-//    cin.getline(data, 100);
 
-//    // write inputted data into the file.
-//    outfile << data << endl;
+// Check if current player score higher than ranking scores
+void Scoreboard::CheckScores(int &score, int &size){
+   for(int i = 0; i < _contents.size(); i++){
 
-//    cout << "Enter your age: "; 
-//    cin >> data;
-//    cin.ignore();
-   
-//    // again write inputted data into the file.
-//    outfile << data << endl;
+      // Add score to score board if higher
+      if(score > std::stoi(_contents[i][1])){
+         std::vector< std::string > newRow{};
+         newRow.emplace_back(_name);
+         newRow.emplace_back(std::to_string(score));
+         newRow.emplace_back(std::to_string(size));
+         _contents.emplace_back(newRow);
+         std::cout << "Congrats, you made it into the Rankings!" << std::endl;
+         break;
+      }
+   }
+   std::cout << "Unfortunately you did not make it into rankings, try again next time." << std::endl;
+}
 
-//    // close the opened file.
-//    outfile.close();
 
-//    // open a file in read mode.
-//    ifstream infile; 
-//    infile.open("afile.dat"); 
- 
-//    cout << "Reading from the file" << endl; 
-//    infile >> data; 
+// Helper function to sort using 2nd element of a vector
+bool SortByColumn(const std::vector< std::string >& v1, const std::vector< std::string >& v2){
+   return std::stoi(v1[1]) > std::stoi(v2[1]);
+}
 
-//    // write the data at the screen.
-//    cout << data << endl;
-   
-//    // again read the data from the file and display it.
-//    infile >> data; 
-//    cout << data << endl; 
+// Compare and rearrange score from high to low
+void Scoreboard::ArrangeScores(){
+   std::sort(_contents.begin(), _contents.end(), SortByColumn);
+}
 
-//    // close the opened file.
-//    infile.close();
 
-//    return 0;
-// }
+// Write data back to file
+void Scoreboard::WriteToFile(int &score, int &size){
+   std::ofstream outfile(_filePath);
+
+   if(outfile){
+
+      // Keep only 5 entries
+      for(int i = 0; i < 5; i++){
+         outfile << _contents[i][0] << " ";
+         outfile << _contents[i][1] << " ";
+         outfile << _contents[i][2] << " " << std::endl;
+      }
+      outfile.close();
+   }
+}

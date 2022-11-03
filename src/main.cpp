@@ -14,14 +14,13 @@ int main() {
   const std::string kFilePath{"../resource/scoreboard.txt"};
 
   Scoreboard scoreboard(kFilePath);
-  scoreboard.RequestName();
+  scoreboard.Start();
   Renderer renderer(kScreenWidth, kScreenHeight, kGridWidth, kGridHeight);
   Controller controller;
   Game game(kGridWidth, kGridHeight);
   game.Run(controller, renderer, kMsPerFrame, scoreboard);
   std::cout << "Game has terminated successfully!\n";
-  std::cout << "Score: " << game.GetScore() << "\n";
-  std::cout << "Size: " << game.GetSize() << "\n";
-  scoreboard.WriteToFile(game.GetScore(), game.GetSize());
+  std::cout << "Your score: " << game.GetScore() << ", your snake size: " << game.GetSize() << std::endl;
+  scoreboard.Stop(game.GetScore(), game.GetSize());
   return 0;
 }
